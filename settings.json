@@ -2,11 +2,14 @@
   "host": "localhost",
   "port": "7070",
 
+  "users": {
+    "username": "password",
+    "top": "secret"
+  },
+
   "databases": {
-    "comics": "comics:comics@localhost:5432/comics",
-    "beliza": "schluete:pyrrha@localhost:5432/test_beliza",
-    "datamart": "username:password@host:port/database",
-    "schluete": "schluete:pyrrha@localhost:5432/schluete"
+    "dbid": "username:password@host:port/database",
+    "node": "node-postgres-proxy:node@localhost:5432/node-postgres-proxy"
   }
 }
 
