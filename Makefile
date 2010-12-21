@@ -2,10 +2,12 @@
 run:
 	node runner.js
 
+dependencies: 
+	git submodule update --init lib/node-postgres
+	git submodule update --init lib/node-elf-logger
+
 test:
-	curl -v -X POST --data "select * from comics limit 5" http://localhost:7070/comics
-
-
-table:
-	curl -v -X POST --data "drop table foobar" http://localhost:7070/schluete
-	curl -v -X POST --data "create table foobar(id integer primary key not null, name varchar(50)" http://localhost:7070/schluete
+	curl -X POST --data "drop table foobar" http://localhost:7070/schluete
+	curl -X POST --data "create table foobar(id serial not null primary key, name varchar(50))" http://localhost:7070/schluete
+	curl -X POST --data "insert into foobar(name) values('Gustav Gans')" http://localhost:7070/schluete
+	curl -X POST --data "select * from foobar" http://localhost:7070/schluete
