@@ -7,9 +7,13 @@
     "top": "secret"
   },
 
+  "secrets": [
+    "topSecret",
+    "evenMoreClandestine"
+  ],
+
   "databases": {
     "dbid": "username:password@host:port/database",
     "node": "node-postgres-proxy:node@localhost:5432/node-postgres-proxy"
   }
 }
-
