@@ -2,7 +2,7 @@ node-postgres-proxy - a simple HTTP proxy for PostgreSQL in node.js
 ===================================================================
 
 * the proxy was developed with node v0.2.5, download it from http://nodejs.org/
-* to use the proxy you must install all required dependencies via `make dependencies`
+* to use the proxy you have to install all required dependencies via `make dependencies`
 * edit the configuration of the proxy in the file `settings.json`. Configure at
   least one database. Without a database configuration the proxy isn't very useful.
 * configure some usernames and passwords to allow access to the server. The credentials
