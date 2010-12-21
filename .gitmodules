@@ -1,0 +1,6 @@
+[submodule "lib/node-postgres"]
+	path = lib/node-postgres
+	url = https://github.com/brianc/node-postgres.git
+[submodule "lib/node-elf-logger"]
+	path = lib/node-elf-logger
+	url = https://github.com/TooTallNate/node-elf-logger.git
