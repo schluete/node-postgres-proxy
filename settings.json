@@ -1,0 +1,12 @@
+{
+  "host": "localhost",
+  "port": "7070",
+
+  "databases": {
+    "comics": "comics:comics@localhost:5432/comics",
+    "beliza": "schluete:pyrrha@localhost:5432/test_beliza",
+    "datamart": "username:password@host:port/database",
+    "schluete": "schluete:pyrrha@localhost:5432/schluete"
+  }
+}
+
