@@ -10,7 +10,7 @@ node-postgres-proxy - a simple HTTP proxy for PostgreSQL in node.js
 * each configured database is available under its own endpoint URL, i.e. the database
   `foobar` will be accessible under `http://localhost:7070/foobar`.
 * to execute a query send a POST request to the proxy:
-  <code><pre>
+
    $ curl -u "top:secret" -X POST --data "select * from persons" http://localhost:7070/node
    { 'success': true,
      'rows': [ { 'id': 1, 'name': 'Pierre Niemans' },
@@ -18,7 +18,6 @@ node-postgres-proxy - a simple HTTP proxy for PostgreSQL in node.js
                { 'id': 3, 'name': 'Fanny Ferreira' }
              ]
    }
-  </pre></code>
 
 * the request returns the result as a JSON-formatted message. If the query was successful
   the field `success` will contain the boolean value `true`. In case of
