@@ -12,12 +12,11 @@ node-postgres-proxy - a simple HTTP proxy for PostgreSQL in node.js
 * to execute a query send a POST request to the proxy:
   <code><pre>
    $ curl -u "top:secret" -X POST --data "select * from persons" http://localhost:7070/node
-   { success: true,
-     rows:
-      [ { id: 1, name: 'Pierre Niemans' }
-      , { id: 2, name: 'Max Kerkerian' }
-      , { id: 3, name: 'Fanny Ferreira' }
-      ]
+   { 'success': true,
+     'rows': [ { 'id': 1, 'name': 'Pierre Niemans' },
+               { 'id': 2, 'name': 'Max Kerkerian' },
+               { 'id': 3, 'name': 'Fanny Ferreira' }
+             ]
    }
   </pre></code>
 
