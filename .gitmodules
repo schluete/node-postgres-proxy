@@ -4,3 +4,6 @@
 [submodule "lib/node-elf-logger"]
 	path = lib/node-elf-logger
 	url = https://github.com/TooTallNate/node-elf-logger.git
+[submodule "lib/underscore"]
+	path = lib/underscore
+	url = https://github.com/documentcloud/underscore.git
