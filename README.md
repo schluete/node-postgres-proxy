@@ -44,3 +44,8 @@ node-postgres-proxy - a simple HTTP proxy for PostgreSQL in node.js
   an error `success` will be `false` and the field `error` contains a textual
   error message.
 * the return field `rows` contains the queried rows, if any.
+* there are some unit tests via the http://vowsjs.org unittesting framework. To execute the
+  `tests` make target you have to install vows:
+
+      $ curl http://npmjs.org/install.sh | sh
+      $ npm install vows 
