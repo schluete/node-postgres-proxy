@@ -5,10 +5,12 @@ node-postgres-proxy - a simple HTTP proxy for PostgreSQL in node.js
 * to use the proxy you have to install all required dependencies via `make dependencies`
 * edit the configuration of the proxy in the file `settings.json`. Configure at
   least one database. Without a database configuration the proxy isn't very useful.
+  use `settings.json.sample` as a starting point.
 * configure some usernames and passwords to allow access to the server. The credentials
-  must be send by the caller via HTTP BASIC AUTH.
+  must be send by the caller via HTTP BASIC AUTH. There is an alternative HMAC based
+  authentication scheme which still neddes to be described.
 * each configured database is available under its own endpoint URL, i.e. the database
-  `foobar` will be accessible under `http://localhost:7070/foobar`.
+  `foobar` will be accessible under `http://localhost:7070/sql/foobar`.
 * to execute a query send a POST request to the proxy:
 
       curl -u "top:secret" -X POST --data "select * from persons" http://localhost:7070/node
