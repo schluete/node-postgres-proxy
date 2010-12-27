@@ -1,5 +1,5 @@
 
-TEST_DATABASE = http://localhost:7070/node
+TEST_DATABASE = http://localhost:7070/sql/node
 
 run:
 	node runner.js
