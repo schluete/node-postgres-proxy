@@ -9,6 +9,7 @@ run:
 dependencies: 
 	git submodule update --init lib/node-postgres
 	git submodule update --init lib/node-elf-logger
+	git submodule update --init lib/underscore
 
 test:
 	curl -u $(CREDENTIALS) -X POST --data "drop table persons" $(TEST_DATABASE)
