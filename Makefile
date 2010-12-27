@@ -11,7 +11,10 @@ dependencies:
 	git submodule update --init lib/node-elf-logger
 	git submodule update --init lib/underscore
 
-test:
+tests:
+	vows --spec tests.js
+
+test_insert:
 	curl -u $(CREDENTIALS) -X POST --data "drop table persons" $(TEST_DATABASE)
 	curl -u $(CREDENTIALS) -X POST --data "create table persons(id serial not null primary key, name varchar(50))" $(TEST_DATABASE)
 	curl -u $(CREDENTIALS) -X POST --data "insert into persons(name) values('Pierre Niemans')" $(TEST_DATABASE)
