@@ -5,24 +5,55 @@
 var sys = require('sys'),
     http = require('http'),
     vows = require('vows'),
-    assert = require('assert');
+    assert = require('assert'),
+    http = require('http'),
+    crypto = require('crypto');
 
+var proxy = require('./lib/node-postgres-proxy');
 var helpers = require('./lib/helpers.js');
 
+var utils = {
+  mockServerResponse: function() {
+    this.data = '';
+    this.status = undefined;
+    this.headers = undefined;
 
-function MockServerResponse() {
-  this.data = '';
-  this.status = undefined;
-  this.headers = undefined;
-  
-  this.writeHead = function(status, headers) {
-    this.status = status;
-    this.headers = sys.inspect(headers);
-  };
-  this.end = function(data) {
-    this.data = data;
-  };
-}
+    this.writeHead = function(status, headers) {
+      this.status = status;
+      this.headers = sys.inspect(headers);
+    };
+    this.end = function(data) {
+      this.data = data;
+    };
+  },
+
+  post: function(hostname, port, path, credentials, data, callback) {
+    var client = http.createClient(port, hostname);
+    var auth = 'Basic ' + new Buffer(credentials || 'top:secret').toString('base64');
+    var headers = {'Host': hostname + ':' + port,
+                   'Authorization': auth,
+                   'Content-Length': data.length};
+    var req = client.request('POST', path, headers);
+    req.write(data, 'utf8');
+    req.end();
+    req.on('response', function(resp) {
+      var statusCode = resp.statusCode;
+      var headers = JSON.stringify(resp.headers);
+      var postData = '';
+      resp.setEncoding('utf8');
+      resp.on('data', function(chunk) { postData += chunk; });
+      resp.on('end', function() {
+        callback(statusCode, headers, postData);
+      });
+    });
+  },
+
+  assertStatus: function(expectedCode) {
+    return function(statusCode, dummy) {
+      assert.equal(statusCode, expectedCode);
+    };
+  }
+};
 
 vows.describe('helper functions').addBatch({
 
@@ -53,7 +84,7 @@ vows.describe('helper functions').addBatch({
   'sendError()': {
     'without a status': {
       topic: function() {
-        var resp=new MockServerResponse();
+        var resp=new utils.mockServerResponse();
         helpers.sendError(resp, 'msg');
         return resp;
       },
@@ -64,7 +95,7 @@ vows.describe('helper functions').addBatch({
     },
     'with a 404 status': {
       topic: function() {
-        var resp=new MockServerResponse();
+        var resp=new utils.mockServerResponse();
         helpers.sendError(resp, 'msg', 404);
         return resp;
       },
@@ -74,7 +105,7 @@ vows.describe('helper functions').addBatch({
     },
     'without a message': {
       topic: function() {
-        var resp=new MockServerResponse();
+        var resp=new utils.mockServerResponse();
         helpers.sendError(resp);
         return resp;
       },
@@ -187,6 +218,23 @@ vows.describe('helper functions').addBatch({
         assert.equal(topic, '');
       }
     }
+  },
+
+  // ---------------------------------------------------------------------------------------------
+  'the proxy': {
+    'with configuration from file': {
+      topic: function() {
+        var self = this;
+        proxy.createProxy('./tests.settings.json', function(server) {
+          var query = 'select * from persons';
+          utils.post('localhost', '7070', '/sql/node', 'top:secret', query,
+                     function(statusCode, headers, postData) {
+                       self.callback(statusCode, 'dummy');
+                       server.close();
+                     });
+        });
+      },
+      'is valid': utils.assertStatus(200)
+    }
   }
 }).export(module);
-  

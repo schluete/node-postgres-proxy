@@ -1,0 +1,21 @@
+{
+  "host": "localhost",
+  "port": "7070",
+
+  "users": {
+    "top": "secret"
+  },
+
+  "secrets": [
+    "eih5uu0Zi"
+  ],
+
+  "databases": {
+    "node": "node-postgres-proxy:node@localhost/node-postgres-proxy"
+  },
+
+  "responseHeaders": {
+    "Server": "node-postgres-proxy",
+    "Cache-Control": "max-age=7200, public, must-revalidate"
+  }
+}
